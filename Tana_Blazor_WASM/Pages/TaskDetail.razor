@@ -1,0 +1,28 @@
+﻿@page "/taskDetails/{TaskId}"
+<h3>TaskDetail @TaskId</h3>
+<table class="table">
+        <thead>
+            <tr>
+             <th>Name</th>
+			<th>Priority</th>
+			<th>Asignee</th>
+			<th>Date</th>
+			<th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+           @foreach (var item in _lstdto)
+           {
+<tr><td>@item.Name</td></tr>   
+<tr><td>@item.Priority</td></tr>    
+<tr><td>@item.AssigneeName</td></tr>    
+<tr><td>@item.Created</td></tr>   
+<tr><td><a href="/taskDetails/@item.Id">Linker</a></td></tr>    
+           }
+        </tbody>
+    </table>
+
+@code{
+	     [Parameter]
+        public string TaskId { get; set; }
+}
