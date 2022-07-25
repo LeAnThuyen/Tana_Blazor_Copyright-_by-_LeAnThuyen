@@ -1,0 +1,20 @@
+﻿@using API_Blazor.Entities
+@switch (status)
+{
+	case Status.New:
+		<span class="badge rounded-pill text-bg-danger">@nameof(Status.New)</span>
+		break;
+	case Status.Canceled:
+		<span class="badge rounded-pill text-bg-primary">@nameof(Status.Canceled)</span>
+		break;
+	case Status.Inprogress:
+		<span class="badge rounded-pill text-bg-warning">@nameof(Status.Inprogress)</span>
+		break;
+	case Status.Done:
+		<span class="badge rounded-pill text-bg-info">@nameof(Status.Done)</span>
+		break;
+}
+@code {
+	[Parameter]
+	public Status status { get; set; }
+}

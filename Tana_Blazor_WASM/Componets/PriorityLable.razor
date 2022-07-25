@@ -1,0 +1,18 @@
+﻿@using API_Blazor.Entities
+@switch (priority)
+{
+	case Priority.Low:
+		<span class="badge rounded-pill text-bg-danger">@nameof(Priority.Low)</span>
+		break;
+	case Priority.High:
+	<span class="badge rounded-pill text-bg-primary">@nameof(Priority.High)</span>
+		break;
+	case Priority.Medium:
+		<span class="badge rounded-pill text-bg-warning">@nameof(Priority.Medium)</span>
+		break;
+}
+
+@code {
+	[Parameter]
+	public Priority priority { get; set; }
+}

@@ -1,0 +1,42 @@
+﻿@page "/create"
+@using API_Blazor.Entities
+@using Tana_Blazor_WASM.Services
+@using ViewModels
+
+<h3>TaskCreate</h3>
+<EditForm Model="@_taskCreateRequest" OnValidSubmit="@checkerSubmit">
+		<DataAnnotationsValidator/>
+		<ValidationSummary/>
+	<div class="mb-3">
+		<label for="Name" class="form-label">Name</label>
+		<InputText class="form-control" @bind-Value="@_taskCreateRequest.Name"></InputText>
+		<ValidationMessage For="()=>_taskCreateRequest.Name"></ValidationMessage>
+	</div>
+
+	<div class="mb-3">
+
+		<label>Priority</label>
+		<InputSelect class="form-control" @bind-Value="@_taskCreateRequest.Priority">
+			@foreach (var x in Enum.GetNames(typeof(Priority)))
+			{
+				<option value="@x">@x </option>
+			}
+		</InputSelect>
+		<ValidationMessage For="()=>_taskCreateRequest.Priority"></ValidationMessage>
+	</div>
+	<button class="btn-danger" type="submit">Submit</button>
+</EditForm>
+@code {
+	[Inject] ITaskAPIClient _taskAPIClient { get; set; }
+	[Inject] NavigationManager _navigationManager { get; set; }
+	private TaskCreateRequest _taskCreateRequest = new TaskCreateRequest();
+	private async Task checkerSubmit(EditContext editContext)
+	{
+		var result= await _taskAPIClient.CreateTask(_taskCreateRequest);
+		if (result)
+		{
+			_navigationManager.NavigateTo("/todolist");
+		}
+		
+	}
+}

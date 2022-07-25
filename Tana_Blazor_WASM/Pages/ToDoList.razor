@@ -1,0 +1,68 @@
+﻿@page "/todolist"
+@using API_Blazor.Entities
+
+<h3>ToDoList: </h3>
+@*<Tana_Blazor_WASM.Componets.LoadingIndicator></Tana_Blazor_WASM.Componets.LoadingIndicator>*@
+
+<div class="row">
+	<EditForm Model="@_taskListSearch" OnSubmit=@FormSubmitted>
+		<div class="col">
+			<label>Name</label>
+			<InputText class="form-control" @bind-Value="@_taskListSearch.Name"></InputText>
+		</div>
+
+		<div class="col">
+			<label>Asignee</label>
+			<InputSelect class="form-control" @bind-Value="@_taskListSearch.AssigneeId">
+				@foreach(var x in _lstAssignee)
+				{
+					<option value="@x.Id">@x.FullName </option>
+				}
+
+
+			</InputSelect>
+		</div>
+		<div class="col">
+			<label>Priority</label>
+						<InputSelect class="form-control" @bind-Value="@_taskListSearch.Priority">
+		@foreach(var x in Enum.GetNames(typeof(Priority)))
+				{
+						<option value="@x">@x </option>
+				}
+					</InputSelect>
+		</div>
+		<div class="col">
+		<button type="submit"  class="btn btn-danger">Search</button>
+		</div>
+
+		<table class="table">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Priority</th>
+			<th>Asignee</th>
+			<th>Date</th>
+			<th>Status</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in @_lstdto)
+		{
+			<tr><td>@item.Name</td></tr>
+			<tr><Tana_Blazor_WASM.Componets.PriorityLable priority="@item.Priority"></Tana_Blazor_WASM.Componets.PriorityLable></tr>
+			<tr><td>@item.AssigneeName</td></tr>
+			<tr><td>@item.Created</td></tr>
+			<tr><Tana_Blazor_WASM.Componets.StatusLable status="@item.Status"></Tana_Blazor_WASM.Componets.StatusLable></tr>
+			<tr><td><a href="/taskDetails/@item.Id">Linker</a></td></tr>
+		}
+	</tbody>
+</table>
+	</EditForm>
+</div>
+
+
+
+
+
+
+
